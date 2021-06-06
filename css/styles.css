@@ -1,0 +1,60 @@
+* {
+    box-sizing: border-box;
+}
+
+#title {
+    text-align: center;
+    padding-top: 40px;
+}
+h1 {
+    background-color: antiquewhite;
+    display: inline-block;
+    padding: 40px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#container {
+    text-align: center;
+    padding: 40px;
+}
+
+#container * {
+    margin: 60px;
+    border: solid 3px red;
+}
+
+#butdiv {
+    text-align: center;
+}
+button {
+    height: 60px;
+    width: 300px;
+    font-size: 30px;
+    background-color: bisque;
+    color: rgb(47, 47, 47);
+    border: none;
+}
+
+#tableDiv{
+    text-align: center;
+}
+table {
+    text-align: center;
+    border-collapse: collapse;
+    display: inline-block;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+}
+
+td,th {
+    border: black solid 1px;
+    padding:10px;
+    font-size: 20px;
+}
+th{
+    background-color: burlywood;
+    font-weight: bold;
+}
