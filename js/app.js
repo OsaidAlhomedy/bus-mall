@@ -70,7 +70,7 @@ function noSameImages(){
 }
 
 
-function displayImages(){
+function displayImages(img){
 
   let indexArr = noSameImages();
 
@@ -82,8 +82,12 @@ function displayImages(){
 
   rightImage.src = Products.arrAll[indexArr[2]].source;
   Products.arrAll[indexArr[2]].shows++;
+
+  if(leftImage.id === img){Products.arrAll[indexArr[0]].votes++;}
+  if(midImage.id === img){Products.arrAll[indexArr[1]].votes++;}
+  if(rightImage.id === img){Products.arrAll[indexArr[2]].votes++;}
 }
-displayImages();
+displayImages(null);
 
 
 
@@ -91,18 +95,18 @@ sectionCont.addEventListener('click', handlingEvent);
 
 function handlingEvent(event){
   counter++;
-//   if(event.target.id === 'left'){
-
-//   }
+  let img = event.target.id;
 
   if(event.target.id === 'container'){
     return;
   }
-  displayImages();
+
+  displayImages(img);
 
   if(counter === rounds){
     sectionCont.removeEventListener('click', handlingEvent);
   }
+  console.log(event);
 
 }
 
