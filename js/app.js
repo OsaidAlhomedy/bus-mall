@@ -8,7 +8,7 @@ let button = document.getElementById('butt');
 let tableEl = document.getElementById('results');
 
 let counter = 0;
-const rounds = 5 ;
+const rounds = 25 ;
 
 Products.arrAll = [];
 let arrayOfNames = [];
