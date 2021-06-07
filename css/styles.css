@@ -51,10 +51,24 @@ table {
 
 td,th {
     border: black solid 1px;
-    padding:10px;
+    padding:5px;
     font-size: 20px;
 }
 th{
     background-color: burlywood;
     font-weight: bold;
+}
+
+#canvasDiv{
+
+    width: 100%;
+    padding-left: 25%;
+    padding-right: 25%;
+    text-align: center;
+
+}
+
+#myChart{
+    display: inline-block;
+    width: 50%;
 }
