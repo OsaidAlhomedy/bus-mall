@@ -58,3 +58,15 @@ th{
     background-color: burlywood;
     font-weight: bold;
 }
+
+#canvasDiv{
+
+    width: 100%;
+    text-align: center;
+
+}
+
+#myChart{
+    display: inline-block;
+    width: 50%;
+}

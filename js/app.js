@@ -8,9 +8,34 @@ let button = document.getElementById('butt');
 let tableEl = document.getElementById('results');
 
 let counter = 0;
-const rounds = 25 ;
+const rounds = 10 ;
 
 Products.arrAll = [];
+
+
+let ctx = document.getElementById('myChart');
+
+let myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: [],
+    datasets: [{
+      label: '# of Votes',
+      data: [],
+      backgroundColor: [
+        'rgba(73, 156, 255, 0.36)'
+      ],
+      borderWidth: 1
+    },{
+      label: '# of Shows',
+      data: [],
+      backgroundColor: [
+        'rgba(255, 0, 255, 0.36)'
+      ],
+      borderWidth: 1
+    }]
+  }
+});
 
 
 function Products(name,source){
@@ -19,7 +44,9 @@ function Products(name,source){
   this.votes = 0;
   this.shows = 0;
 
+  myChart.config._config.data.labels.push(this.name);
   Products.arrAll.push(this);
+  console.log(this);
 
 }
 
@@ -140,7 +167,15 @@ function resultsFunc(){
     tdEl = document.createElement('td');
     tdEl.textContent = Products.arrAll[j].shows;
     tr1El.appendChild(tdEl);
+    
+    myChart.config._config.data.datasets[0].data.push(Products.arrAll[j].votes);
+    myChart.config._config.data.datasets[1].data.push(Products.arrAll[j].shows);
   }
-
+  
   button.removeEventListener('click', resultsFunc);
+  console.log(myChart);
 }
+
+
+
+
