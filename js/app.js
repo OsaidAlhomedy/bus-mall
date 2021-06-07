@@ -174,7 +174,7 @@ function resultsFunc(){
 function chartRender(){
 
   let ctx = document.getElementById('myChart');
-  // eslint-disable-next-line no-undef
+  //eslint-disable-next-line no-undef,no-unused-vars
   let myChart = new Chart(ctx, {
     type: 'bar',
     data: {
