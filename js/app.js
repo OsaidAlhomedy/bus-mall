@@ -8,34 +8,12 @@ let button = document.getElementById('butt');
 let tableEl = document.getElementById('results');
 
 let counter = 0;
-const rounds = 10 ;
+const rounds = 25 ;
 
 Products.arrAll = [];
-
-
-let ctx = document.getElementById('myChart');
-
-let myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: [],
-    datasets: [{
-      label: '# of Votes',
-      data: [],
-      backgroundColor: [
-        'rgba(73, 156, 255, 0.36)'
-      ],
-      borderWidth: 1
-    },{
-      label: '# of Shows',
-      data: [],
-      backgroundColor: [
-        'rgba(255, 0, 255, 0.36)'
-      ],
-      borderWidth: 1
-    }]
-  }
-});
+let arrayOfNames = [];
+let arrayOfVotes = [];
+let arrayOfShows = [];
 
 
 function Products(name,source){
@@ -44,9 +22,9 @@ function Products(name,source){
   this.votes = 0;
   this.shows = 0;
 
-  myChart.config._config.data.labels.push(this.name);
+  // myChart.config._config.data.labels.push(this.name);
   Products.arrAll.push(this);
-  console.log(this);
+  arrayOfNames.push(this.name);
 
 }
 
@@ -81,11 +59,14 @@ function randomIndexGen(){
   return randomIndex;
 }
 
+let leftIndex = null;
+let midIndex = null;
+let rightIndex = null;
 
 function noSameImages(){
-  let leftIndex = randomIndexGen();
-  let midIndex = randomIndexGen();
-  let rightIndex = randomIndexGen();
+  leftIndex = randomIndexGen();
+  midIndex = randomIndexGen();
+  rightIndex = randomIndexGen();
 
   while(leftIndex === rightIndex || midIndex === leftIndex || midIndex ===rightIndex){
     leftIndex = randomIndexGen();
@@ -97,23 +78,37 @@ function noSameImages(){
 }
 
 
+let checkIndex=[];
+
 function displayImages(img){
 
   let indexArr = noSameImages();
 
+  while (checkIndex.includes(indexArr[0]) || checkIndex.includes(indexArr[1]) || checkIndex.includes(indexArr[2])){
+    indexArr = noSameImages();
+  }
+  console.log(indexArr,checkIndex);
+
   leftImage.src = Products.arrAll[indexArr[0]].source;
   Products.arrAll[indexArr[0]].shows++;
+  checkIndex[0]=indexArr[0];
 
   midImage.src = Products.arrAll[indexArr[1]].source;
   Products.arrAll[indexArr[1]].shows++;
+  checkIndex[1]=indexArr[1];
 
   rightImage.src = Products.arrAll[indexArr[2]].source;
   Products.arrAll[indexArr[2]].shows++;
+  checkIndex[2]=indexArr[2];
 
   if(leftImage.id === img){Products.arrAll[indexArr[0]].votes++;}
   if(midImage.id === img){Products.arrAll[indexArr[1]].votes++;}
   if(rightImage.id === img){Products.arrAll[indexArr[2]].votes++;}
+
+  console.log(indexArr,checkIndex);
+
 }
+
 displayImages(null);
 
 
@@ -133,7 +128,6 @@ function handlingEvent(event){
   if(counter === rounds){
     sectionCont.removeEventListener('click', handlingEvent);
   }
-  console.log(event);
 
 }
 
@@ -167,15 +161,40 @@ function resultsFunc(){
     tdEl = document.createElement('td');
     tdEl.textContent = Products.arrAll[j].shows;
     tr1El.appendChild(tdEl);
-    
-    myChart.config._config.data.datasets[0].data.push(Products.arrAll[j].votes);
-    myChart.config._config.data.datasets[1].data.push(Products.arrAll[j].shows);
+
+    arrayOfVotes.push(Products.arrAll[j].votes);
+    arrayOfShows.push(Products.arrAll[j].shows);
+    // myChart.config._config.data.datasets[0].data.push(Products.arrAll[j].votes);
+    // myChart.config._config.data.datasets[1].data.push(Products.arrAll[j].shows);
   }
-  
+  chartRender();
   button.removeEventListener('click', resultsFunc);
-  console.log(myChart);
 }
 
+function chartRender(){
 
+  let ctx = document.getElementById('myChart');
+  // eslint-disable-next-line no-undef
+  let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: arrayOfNames,
+      datasets: [{
+        label: '# of Votes',
+        data: arrayOfVotes,
+        backgroundColor: [
+          'rgba(73, 156, 255, 0.36)'
+        ],
+        borderWidth: 1
+      },{
+        label: '# of Shows',
+        data: arrayOfShows,
+        backgroundColor: [
+          'rgba(255, 0, 255, 0.36)'
+        ],
+        borderWidth: 1
+      }]
+    }
+  });
 
-
+}
