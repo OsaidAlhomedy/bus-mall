@@ -51,7 +51,7 @@ table {
 
 td,th {
     border: black solid 1px;
-    padding:10px;
+    padding:5px;
     font-size: 20px;
 }
 th{
@@ -62,6 +62,8 @@ th{
 #canvasDiv{
 
     width: 100%;
+    padding-left: 25%;
+    padding-right: 25%;
     text-align: center;
 
 }
