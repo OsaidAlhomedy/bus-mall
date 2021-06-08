@@ -8,7 +8,7 @@ let button = document.getElementById('butt');
 let tableEl = document.getElementById('results');
 
 let counter = 0;
-const rounds = 25 ;
+const rounds = 10 ;
 
 Products.arrAll = [];
 let arrayOfNames = [];
@@ -53,6 +53,8 @@ new Products('water-can','imgs/water-can.jpg');
 new Products('wine-glass','imgs/wine-glass.jpg');
 
 
+
+getItems();
 
 function randomIndexGen(){
   let randomIndex = Math.floor(Math.random()*Products.arrAll.length);
@@ -167,11 +169,18 @@ function resultsFunc(){
     // myChart.config._config.data.datasets[0].data.push(Products.arrAll[j].votes);
     // myChart.config._config.data.datasets[1].data.push(Products.arrAll[j].shows);
   }
+
+
   chartRender();
+  storeArr();
   button.removeEventListener('click', resultsFunc);
 }
 
 function chartRender(){
+
+  let h1El = document.createElement('h1');
+  document.getElementById('h1el').appendChild(h1El);
+  h1El.textContent = 'Total Numbers';
 
   let ctx = document.getElementById('myChart');
   //eslint-disable-next-line no-undef,no-unused-vars
@@ -197,4 +206,22 @@ function chartRender(){
     }
   });
 
+}
+
+
+function getItems(){
+
+  let products;
+  products = localStorage.getItem('myArr');
+
+  if(products){
+    Products.arrAll = JSON.parse(products);
+  }
+}
+
+
+
+function storeArr(){
+  let keyItem = JSON.stringify(Products.arrAll);
+  localStorage.setItem('myArr',keyItem);
 }
